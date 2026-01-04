@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import matplotlib.font_manager as fm
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
@@ -161,7 +160,6 @@ def setup_chart_style():
         'xtick.color': text_color,
         'ytick.color': text_color,
         'font.family': 'monospace', # Fallback to monospace for nice tech feel
-        # 'font.monospace': ['Space Mono', 'Consolas'], # Try to use system fonts if available
         'grid.color': accent_color,
         'grid.linestyle': ':',
         'grid.linewidth': 0.5,
@@ -181,7 +179,7 @@ def plot_stress_gap(df):
     occ_total = df['Occupation'].value_counts()
     stress_ratio = (occ_stress / occ_total * 100).sort_values(ascending=True)
     
-    # Filter for cleaner viz (optional, keeping all for now)
+    # Filter for cleaner viz (keeping all for completeness)
     
     fig, ax = plt.subplots(figsize=(10, 6))
     
@@ -192,7 +190,7 @@ def plot_stress_gap(df):
     # The Plot - Using "Electric Clay" (#E07A5F) for bars
     bars = ax.barh(stress_ratio.index, stress_ratio.values, color='#E07A5F', height=0.6)
     
-    # "Digital Craftsmanship" Styling
+    # Styling
     # 1. Remove Spines
     for spine in ax.spines.values():
         spine.set_visible(False)
@@ -210,9 +208,6 @@ def plot_stress_gap(df):
                 ha='left', va='center', 
                 fontsize=11, fontfamily='monospace', color='#E07A5F', fontweight='bold')
         
-    # Title (handled in H1/H2 in HTML, but here for context if exported)
-    # ax.set_title("GROWING STRESS BY OCCUPATION", loc='left', fontsize=10, pad=20, color='#8D99AE')
-
     return fig
 
 # --- THE "STREAM" (Main Content) ---
@@ -311,7 +306,7 @@ with col_age_plot:
 
 def plot_global_headspace(df):
     """
-    Visualization 2: Global Headspace.
+    Visualization 3: Global Headspace.
     Lollipop Chart: % of people with Mental Health History by Country.
     """
     setup_chart_style()
@@ -356,7 +351,7 @@ def plot_global_headspace(df):
 
 def plot_habit_loop(df):
     """
-    Visualization 3: Habit Loop.
+    Visualization 4: Habit Loop.
     Heatmap of Days Indoors vs Mood Swings.
     """
     setup_chart_style()
@@ -377,9 +372,7 @@ def plot_habit_loop(df):
     ax.patch.set_alpha(0.0)
     
     # Heatmap
-    # We construct a custom heatmap using scatter or imshow
-    # Imshow is easier but standard seaborn is better (no seaborn allowd per user prompt? "pandas, matplotlib").
-    # We will use imshow with matplotlib
+    # Using imshow for a raw, digital grid look (matching the 'Void' aesthetic)
     
     im = ax.imshow(heatmap_data.values, cmap='bone', aspect='auto') # 'bone' is dark/greyscale/blueish
     
@@ -463,7 +456,7 @@ st.markdown("<div style='height: 100px;'></div>", unsafe_allow_html=True)
 
 def plot_coping_donut(df):
     """
-    Visualization 4: The Circle of Control.
+    Visualization 5: The Circle of Control.
     Donut Chart for Coping Struggles.
     """
     setup_chart_style()
@@ -507,7 +500,7 @@ def plot_coping_donut(df):
 
 def plot_gender_treatment(df):
     """
-    Visualization 5: The Gender Divide.
+    Visualization 6: The Gender Divide.
     Stacked Bar: Gender vs Seeking Treatment.
     """
     setup_chart_style()
@@ -576,7 +569,7 @@ st.markdown("<div style='height: 100px;'></div>", unsafe_allow_html=True)
 
 def plot_symptom_cluster(df):
     """
-    Visualization 6: The Symptom Cluster.
+    Visualization 7: The Symptom Cluster.
     Grouped Bar Chart for Habits, Work Interest, and Social Weakness.
     """
     setup_chart_style()
@@ -591,8 +584,7 @@ def plot_symptom_cluster(df):
         data[c] = counts
         
     symptom_df = pd.DataFrame(data).fillna(0).T 
-    # Reorder columns if needed usually Yes/No/Maybe/Not sure
-    # Let's ensure consistent scale
+    # Ensure consistent scale
     
     fig, ax = plt.subplots(figsize=(10, 5))
     fig.patch.set_alpha(0.0)
@@ -614,7 +606,7 @@ def plot_symptom_cluster(df):
 
 def plot_systemic_factors(df):
     """
-    Visualization 7: Systemic Factors.
+    Visualization 8: Systemic Factors.
     Small multiples for Care Options, Family History, Interview.
     """
     setup_chart_style()
@@ -677,6 +669,3 @@ with col_system:
     st.markdown("<p style='text-align: center; font-size: 0.8rem; color: #666;'>Care Options, Family History, and Interview Openness.</p>", unsafe_allow_html=True)
 
 st.markdown("<div style='height: 100px;'></div>", unsafe_allow_html=True)
-
-
-

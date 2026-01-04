@@ -15,7 +15,7 @@ Unlike standard dashboards, this project adheres to a strict "Digital Craftsmans
 *   **Interaction**: Zero-spine charts, direct labeling, and glassmorphism cards.
 
 ## 🛠️ Technology Stack
-*   **Core**: Python 3.x
+*   **Core**: Python 3.13
 *   **Framework**: Streamlit
 *   **Data Processing**: Pandas
 *   **Visualization**: Matplotlib (Customized for CSS consistency)
@@ -41,31 +41,36 @@ Unlike standard dashboards, this project adheres to a strict "Digital Craftsmans
 
 ## 📊 Visualizations & Logic
 
-The dashboard is divided into 5 "Story Sections", covering every column in the dataset:
+The dashboard is divided into 6 "Story Sections", covering every column in the dataset:
 
 ### 1. The Weight of Work
-*   **Chart**: Horizontal Bar (Spine-less)
+*   **Visualization 1**: Horizontal Bar (Spine-less)
 *   **Metric**: `Growing_Stress` vs `Occupation`
 *   **Insight**: Identifying which professions are reporting higher perceived stress increases.
 
-### 2. The Geography of Pain
-*   **Chart**: Lollipop Chart
+### 2. The Age of Anxiety
+*   **Visualization 2**: Violin Plot (Minimalist)
+*   **Metric**: `Age` vs `Growing_Stress`
+*   **Insight**: Visualizing the generational burden of stress—comparing age distributions of those reporting growing stress vs. those who don't.
+
+### 3. The Geography of Pain
+*   **Visualization 3**: Lollipop Chart
 *   **Metric**: `Mental_Health_History` vs `Country`
 *   **Insight**: A cleaner alternative to choropleth maps, showing the % of reported history by nation.
 
-### 3. The Habit Loop
-*   **Chart**: Monochromatic Heatmap (`Bone` colormap)
+### 4. The Habit Loop
+*   **Visualization 4**: Monochromatic Heatmap (`Bone` colormap)
 *   **Metric**: `Days_Indoors` vs `Mood_Swings`
 *   **Insight**: Visually proves the correlation between isolation (days indoors) and emotional volatility.
 
-### 4. Hidden Battles
-*   **Charts**: Donut Chart & Stacked Bar
+### 5. Hidden Battles
+*   **Visualizations 5 & 6**: Donut Chart & Stacked Bar
 *   **Metrics**:
     *   `Coping_Struggles`: The "Circle of Control" showing the split in coping mechanisms.
     *   `Gender` vs `Treatment`: Highlighting the disparity in help-seeking behavior between genders.
 
-### 5. The Holistic View
-*   **Charts**: Grouped Bar & Small Multiples
+### 6. The Holistic View
+*   **Visualizations 7 & 8**: Grouped Bar & Small Multiples
 *   **Metrics**:
     *   **Symptom Triad**: `Changes_Habits`, `Work_Interest`, `Social_Weakness`.
     *   **Systemic Factors**: `Care_Options`, `Family_History`, `Interview_Openness`.
