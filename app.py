@@ -231,6 +231,84 @@ with row1_col1:
     st.markdown("</div>", unsafe_allow_html=True)
 
 
+def plot_age_dist(df):
+    """
+    Visualization 2 (New): The Age of Anxiety.
+    Violin Plot: Age Distribution by Growing Stress (Yes/No).
+    """
+    setup_chart_style()
+    
+    # Data Prep
+    # Filter out NaNs if any
+    df_clean = df.dropna(subset=['Age', 'Growing_Stress'])
+    
+    age_yes = df_clean[df_clean['Growing_Stress'] == 'Yes']['Age'].values
+    age_no = df_clean[df_clean['Growing_Stress'] == 'No']['Age'].values
+    
+    fig, ax = plt.subplots(figsize=(10, 6))
+    fig.patch.set_alpha(0.0)
+    ax.patch.set_alpha(0.0)
+    
+    # Violin Plot
+    # positions: 1 for Yes, 2 for No
+    parts = ax.violinplot([age_yes, age_no], positions=[1, 2], showmeans=False, showmedians=True, showextrema=False)
+    
+    # Styling the Violins
+    # Body
+    for i, pc in enumerate(parts['bodies']):
+        pc.set_facecolor('#E07A5F' if i == 0 else '#8D99AE')
+        pc.set_edgecolor('#F4F1DE')
+        pc.set_alpha(0.7)
+    
+    # Median Lines
+    if 'cmedians' in parts:
+        parts['cmedians'].set_color('#F4F1DE')
+        parts['cmedians'].set_linewidth(1.5)
+
+    # Custom styling
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+        
+    ax.set_xticks([1, 2])
+    ax.set_xticklabels(['Growing Stress:\nYES', 'Growing Stress:\nNO'], fontsize=12, fontfamily='monospace')
+    ax.tick_params(axis='y', colors='#8D99AE', labelsize=10)
+    ax.set_ylabel('Age', color='#8D99AE', fontfamily='monospace')
+
+    # Add descriptive text/stats
+    mean_yes = age_yes.mean()
+    mean_no = age_no.mean()
+    
+    ax.text(1, 72, f'Mean: {mean_yes:.1f}y', ha='center', color='#E07A5F', fontsize=10, fontfamily='monospace')
+    ax.text(2, 72, f'Mean: {mean_no:.1f}y', ha='center', color='#8D99AE', fontsize=10, fontfamily='monospace')
+    
+    return fig
+
+st.markdown("<div style='height: 80px;'></div>", unsafe_allow_html=True)
+
+# Section 02: The Age of Anxiety
+st.markdown("## 02. The Age of Anxiety")
+st.markdown("<p style='max-width: 600px; margin-bottom: 2rem; color: #8D99AE;'>Does age correlate with the perceived rise in stress?</p>", unsafe_allow_html=True)
+
+col_age_text, col_age_plot = st.columns([1, 2])
+
+with col_age_text:
+     st.markdown("""
+        <div class='glass-card' style='margin-top: 2rem;'>
+            <h4 style='color: #F4F1DE; margin-bottom: 0.5rem; font-family: Playfair Display;'>Generational Weight.</h4>
+            <p>
+                Visualizing the age distribution reveals if stress is a burden of the young or the weary.
+                <br><br>
+                <span style='color: #E07A5F;'><b>Orange</b></span> indicates those reporting <b>Growing Stress</b>.
+                <br>
+                <span style='color: #8D99AE;'><b>Grey</b></span> indicates those who differ.
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+
+with col_age_plot:
+    st.pyplot(plot_age_dist(df))
+
+
 def plot_global_headspace(df):
     """
     Visualization 2: Global Headspace.
@@ -335,7 +413,7 @@ def plot_habit_loop(df):
 st.markdown("<div style='height: 80px;'></div>", unsafe_allow_html=True)
 
 # Section 2: Global Headspace
-st.markdown("## 02. The Geography of Pain")
+st.markdown("## 03. The Geography of Pain")
 st.markdown("<p style='max-width: 600px; margin-bottom: 2rem; color: #8D99AE;'>Reported family history of mental health issues across nations with significant respondent data.</p>", unsafe_allow_html=True)
 
 col_map, col_text = st.columns([2, 1])
@@ -360,7 +438,7 @@ with col_text:
 st.markdown("<div style='height: 80px;'></div>", unsafe_allow_html=True)
 
 # Section 3: Habit Loop
-st.markdown("## 03. The Habit Loop")
+st.markdown("## 04. The Habit Loop")
 st.markdown("<p style='max-width: 600px; margin-bottom: 2rem; color: #8D99AE;'>Correlation between isolation (Days Indoors) and emotional volatility (Mood Swings).</p>", unsafe_allow_html=True)
 
 col_heat, col_desc = st.columns([1.5, 1])
@@ -470,7 +548,7 @@ def plot_gender_treatment(df):
 st.markdown("<div style='height: 80px;'></div>", unsafe_allow_html=True)
 
 # Section 4: Hidden Battles (New Coverage)
-st.markdown("## 04. Hidden Battles")
+st.markdown("## 05. Hidden Battles")
 st.markdown("<p style='max-width: 600px; margin-bottom: 2rem; color: #8D99AE;'>Examining how different groups cope and seek help (Coping Struggles, Gender, Treatment).</p>", unsafe_allow_html=True)
 
 col_donut, col_stack = st.columns([1, 1.5])
@@ -570,7 +648,7 @@ def plot_systemic_factors(df):
 st.markdown("<div style='height: 80px;'></div>", unsafe_allow_html=True)
 
 # Section 5: The Holistic View
-st.markdown("## 05. The Holistic View")
+st.markdown("## 06. The Holistic View")
 st.markdown("<p style='max-width: 600px; margin-bottom: 2rem; color: #8D99AE;'>A final deep dive into behavioral symptoms and systemic responsiveness.</p>", unsafe_allow_html=True)
 
 # 5.1 Stats Row (Self Employed)
